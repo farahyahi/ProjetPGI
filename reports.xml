@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+   <template id="report_complaint_receipt_view">
+        <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page" style="font-family: 'Montserrat', sans-serif; line-height: 1.6;">
+                            <!-- Title Section -->
+                            <h2 style="text-align: center; font-size: 24px; color: #0000FF ; font-weight: bold; text-decoration: underline;"><strong>Accusé de Réception</strong></h2>
+                            
+                            
+                            <!-- Agence Section -->
+                            <p style="font-size: 18px; margin-top: 40px;">
+                                <strong>Agence :</strong> <t t-esc="doc.x_agence_id.name"/>
+                            </p>
+
+                            <!-- Réclamant Section -->
+                            <p style="text-align: left; font-size: 18px;"> <strong>Réclamant :</strong> </p>
+                            <!-- Réclamant Section in Table -->
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 16px;">
+                                <thead>
+                                    <tr style="background-color: #f2f2f2; text-align: left;">
+                                        <th style="padding: 8px; border: 1px solid #ddd; width: 30%;">Champ</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">Information</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Nom</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Adresse</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.street"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Commune</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.city"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Téléphone</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.phone"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">E-mail</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.email"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Objet and Description Section -->
+                            <p style="text-align: left; font-size: 18px; margin-top: 20px;"><strong>Réclamation :</strong> </p>
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 16px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Objet</td>
+                                            <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_objet"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Description</td>
+                                            <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_description"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            <!-- Body Text Section -->
+                            <p style="font-size: 18px; text-align: center; margin-top: 40px;">
+                                Nous accusons réception de votre réclamation et vous remercions de l’avoir portée à notre attention. 
+                                Notre équipe s’efforcera de traiter votre demande dans les meilleurs délais. Pour toute question 
+                                supplémentaire, n’hésitez pas à nous contacter.
+                            </p>
+
+                            <!-- Signature Section -->
+                            <p style="text-align: right; font-size: 18px;">
+                                <strong>Date :</strong> <t t-esc="doc.x_date_reception"/>
+                            </p>
+                            <p style="text-align: right; font-size: 18px;">
+                                <strong>Signature :</strong> 
+                            </p>
+                            <p style="text-align: right; font-size: 18px; margin-top: 40px;">
+                                <strong>Entreprise AlMiyah Djazair</strong>
+                            </p>
+                        </div>
+                    </t>
+                </t>
+        </t>
+    </template>
+
+
+
+  <!-- Action pour le rapport d'accusé de réception -->
+   <record id="report_complaint_receipt" model="ir.actions.report">
+        <field name="name">Accusé de Réception</field>
+        <field name="model">complaint.management</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">complaintManagement.report_complaint_receipt_view</field>
+        <field name="report_file">complaintManagement.report_complaint_receipt</field>
+        <field name="binding_model_id" ref="model_complaint_management"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- Rapport de PV de décision -->
+    <template id="report_commercial_decision_pv">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="font-family: 'Montserrat', sans-serif; line-height: 1.6;">
+                        <!-- Title Section -->
+                        <h2 style="text-align: center; font-size: 24px; color: #0000FF; font-weight: bold; text-decoration: underline;">
+                            <strong>Procès-Verbal de Décision</strong>
+                        </h2>
+
+                        <!-- Agence Section -->
+                        <p style="font-size: 18px; margin-top: 40px;">
+                            <strong>Agence :</strong> <t t-esc="doc.x_agence_id.name"/>
+                        </p>
+
+                        <!-- Réclamant Section -->
+                        <p style="text-align: left; font-size: 18px;"> <strong>Réclamant :</strong> </p>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 16px;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2; text-align: left;">
+                                    <th style="padding: 8px; border: 1px solid #ddd; width: 30%;">Champ</th>
+                                    <th style="padding: 8px; border: 1px solid #ddd;">Information</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Nom</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Adresse</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.street"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Commune</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.city"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Téléphone</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.phone"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">E-mail</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;"><t t-esc="doc.x_reclamant.email"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Body Text Section -->
+                        <p style="font-size: 18px; text-align: center; margin-top: 40px;">
+                            Nous vous remercions pour votre réclamation. Nous avons pris la décision suivante concernant votre demande.
+                            Pour toute question supplémentaire, n’hésitez pas à nous contacter.
+                        </p>
+
+                        <!-- Détails de la décision Section -->
+                        <h3 style="margin-top: 40px;">Détails de la Décision</h3>
+                        <p style="font-size: 18px; margin-top: 10px;">
+                            <strong>Décision :</strong> <t t-esc="doc.x_decision"/>
+                        </p>
+
+                        <!-- Signature Section -->
+                        <p style="text-align: right; font-size: 18px;">
+                            <strong>Date :</strong> <t t-esc="doc.x_date_resolution"/>
+                        </p>
+                        <p style="text-align: right; font-size: 18px;">
+                            <strong>Signature :</strong>
+                        </p>
+                        <p style="text-align: right; font-size: 18px; margin-top: 40px;">
+                            <strong>Entreprise AlMiyah Djazair</strong>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Action pour le rapport de PV de décision -->
+    <record id="report_commercial_decision_pv_action" model="ir.actions.report">
+        <field name="name">PV de Décision</field>
+        <field name="model">complaint.management</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">complaintManagement.report_commercial_decision_pv</field>
+        <field name="report_file">complaintManagement.report_commercial_decision_pv</field>
+        <field name="binding_model_id" ref="model_complaint_management"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

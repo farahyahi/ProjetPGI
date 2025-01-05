@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Vue Tree pour le traitement des réclamations commerciales -->
+        <record id="view_commercial_complaint_traitement_tree" model="ir.ui.view">
+            <field name="name">complaint.management.tree</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+                <tree string="Réclamations commerciales">
+                    <field name="x_objet"/>
+                    <field name="x_categorie"/>
+                    <field name="x_date_reception"/>
+                    <field name="x_etat_traitement"/>
+                    <field name="x_urgence"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vue de recherche pour le traitement des réclamations commerciales -->
+        <record id="view_commercial_complaint_search" model="ir.ui.view">
+            <field name="name">commercial.complaint.management.search</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+                <search string="Recherche de réclamations commerciales">
+                    <field name="x_objet"/>
+                    <filter name="filter_urgence" string="Urgence" domain="[('x_urgence', '!=', False)]"/>
+                    <filter name="filter_etat" string="État" domain="[('x_etat_traitement', '!=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vue Form pour les réclamations commerciales-->
+        <record id="view_commercial_complaint_traitement_form" model="ir.ui.view">
+            <field name="name">complaint.management.form</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+                <form string="Réclamations commerciales">
+    
+                    <group string="Réclamant">
+                        <field name="x_origine" readonly="1"/>
+                        <field name="x_reclamant" readonly="1"/>
+                    </group>
+                    
+                    <!--affichage reclamation pour respo et admin-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_admin,complaintManagement.group_cm_respo">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception" readonly="1"/>
+                        <field name="x_objet" readonly="1"/>
+                        <field name="x_description" readonly="1"/>
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence"/>  
+                        <field name="x_categorie"/>
+                        <field name="x_comments"/>
+                        <field name="x_attachements" filename="x_attachements_name" readonly='1'/>
+                    </group>
+
+                    <!--affichage reclamation pour les autres-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_agent_commercial">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception" readonly="1"/>
+                        <field name="x_objet" readonly="1"/>
+                        <field name="x_description" readonly="1"/>
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence" readonly="1"/>  
+                        <field name="x_categorie" readonly="1"/>
+                        <field name="x_comments" readonly="1"/>
+                        <field name="x_attachements" filename="x_attachements_name" readonly='1'/>
+                    </group>               
+                        
+    
+                    
+                    <!-- affichage traitement pour respo -->
+                    <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_respo">                     
+                        <field name="x_traite_par"/>
+                        <field name="x_date_resolution" readonly="1"/>
+                        <field name="x_decision" readonly="1"/>
+                    </group>
+                        
+                    <!-- affichage traitement pour admin -->
+                    <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_admin">
+                        <field name="x_traite_par"/>
+                        <field name="x_date_resolution"/>
+                        <field name="x_decision" />
+                    </group>
+
+                    <!-- affichage traitement pour chef-->
+                    <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_agent_commercial">
+                        <field name="x_traite_par" readonly="1"/>
+                        <field name="x_date_resolution"/>
+                        <field name="x_decision" />
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Affichage des PJ dans formulaire -->
+        <record id="view_commercial_complaint_traitement_form_inherit" model="ir.ui.view">
+            <field name="name">complaint.management.form.inherit</field>
+            <field name="model">complaint.management</field>
+            <field name="inherit_id" ref="complaintManagement.view_commercial_complaint_traitement_form"/>
+            <field name="arch" type="xml">
+                <!-- Supprimer les champs inutiles -->
+                <xpath expr="//field[@name='x_attachements']" position="replace">
+                    <field name="x_attachements" widget="many2many_list" readonly="1">
+                        <tree>
+                            <field name="name" string="Nom"/>
+                            <field name="type" string="Type"/>
+                            <field name="file_size" string="Taille"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Action pour les réclamations commerciales-->
+        <record id="action_commercial_complaint_traitement" model="ir.actions.act_window">
+            <field name="name">Réclamations commerciales</field>
+            <field name="res_model">complaint.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('x_categorie', '=', 'Commerciale')]</field>
+            <field name="view_ids" eval="[(5, 0, 0), 
+                                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_commercial_complaint_traitement_tree')}),
+                                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_commercial_complaint_traitement_form')})]"/>
+        </record>
+
+
+        <!-- Sous-menu pour afficher le traitement des réclamations commerciales-->
+        <menuitem id="menu_commercial_complaint_traitement"
+                  name="Réclamations commerciales" 
+                  parent="menu_complaint_traitement" 
+                  action="action_commercial_complaint_traitement" 
+                  sequence="30"
+                  groups="complaintManagement.group_cm_admin,complaintManagement.group_cm_respo,complaintManagement.group_cm_agent_commercial"/>
+
+
+    </data>
+</odoo>                 

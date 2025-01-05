@@ -1,0 +1,274 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Création d'une nouvelle catégorie pour le module -->
+            <record id="module_category_complaint_management" model="ir.module.category">
+                <field name="name">Gestion des Réclamations</field>
+                <field name="sequence">10</field> <!-- Ordre d'affichage dans la liste -->
+            </record>
+
+        <!-- Définition des groupes -->
+        <record id="group_cm_admin" model="res.groups">
+            <field name="name">Administrateur</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_respo" model="res.groups">
+            <field name="name">Responsable Agence</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_agent_clientele" model="res.groups">
+            <field name="name">Agent Clientèle</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_agent_cellule" model="res.groups">
+            <field name="name">Agent Cellule de Veille</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_agent_commercial" model="res.groups">
+            <field name="name">Agent Commercial</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_technicien" model="res.groups">
+            <field name="name">Technicien</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+        <record id="group_cm_chef_equipe_tech" model="res.groups">
+            <field name="name">Chef d'Équipe</field>
+            <field name="category_id" ref="complaintManagement.module_category_complaint_management"/>
+        </record>
+
+
+        <!-- Règles d'accès pour le modèle complaint.management -->
+
+        <!-- Accès complet pour Administrateur -->
+        <record model="ir.model.access" id="complaint_management_admin_access">
+            <field name="name">complaint.management.admin.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_admin"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Accès complet pour Responsable Agence -->
+        <record model="ir.model.access" id="complaint_management_respo_access">
+            <field name="name">complaint.management.respo.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_respo"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Accès lecture/écriture pour Agent Clientèle -->
+        <record model="ir.model.access" id="complaint_management_agent_clientele_access">
+            <field name="name">complaint.management.agent_clientele.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_agent_clientele"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès lecture/écriture pour Agent Cellule de Veille -->
+        <record model="ir.model.access" id="complaint_management_agent_cellule_access">
+            <field name="name">complaint.management.agent_cellule.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_agent_cellule"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès lecture/écriture pour Agent Commercial -->
+        <record model="ir.model.access" id="complaint_management_agent_commercial_access">
+            <field name="name">complaint.management.agent_commercial.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_agent_commercial"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès lecture/écriture pour Technicien -->
+        <record model="ir.model.access" id="complaint_management_technicien_access">
+            <field name="name">complaint.management.technicien.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_technicien"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès lecture/écriture pour Chef d'Équipe -->
+        <record model="ir.model.access" id="complaint_management_chef_access">
+            <field name="name">complaint.management.chef.access</field>
+            <field name="model_id" ref="model_complaint_management"/>
+            <field name="group_id" ref="group_cm_chef_equipe_tech"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Règles d'accès pour le modèle complaint.action -->
+
+        <!-- Droits pour les Administrateurs -->
+        <record model="ir.model.access" id="complaint_action_admin_access">
+            <field name="name">complaint.action.admin.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_admin"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Droits pour les Chefs d'Équipe -->
+        <record model="ir.model.access" id="complaint_action_chef_access">
+            <field name="name">complaint.action.chef.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_chef_equipe_tech"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Droits pour le respo-->
+        
+        <record model="ir.model.access" id="complaint_action_respo_access">
+            <field name="name">complaint.action.respo.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_respo"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record model="ir.model.access" id="complaint_action_agent_clientele_access">
+            <field name="name">complaint.action.agent_clientele.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_agent_clientele"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record model="ir.model.access" id="complaint_action_agent_cellule_access">
+            <field name="name">complaint.action.agent_cellule.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_agent_cellule"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record model="ir.model.access" id="complaint_action_agent_commercial_access">
+            <field name="name">complaint.action.agent_commercial.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_agent_commercial"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record model="ir.model.access" id="complaint_action_technicien_access">
+            <field name="name">complaint.action.technicien.access</field>
+            <field name="model_id" ref="model_complaint_action"/>
+            <field name="group_id" ref="group_cm_technicien"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Règles d'accès pour le modèle complaint.call -->
+        <!-- Accès complet pour Administrateur -->
+        <record model="ir.model.access" id="complaint_call_admin_access">
+            <field name="name">complaint.call.admin.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_admin"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Accès complet pour Responsable Agence -->
+        <record model="ir.model.access" id="complaint_call_respo_access">
+            <field name="name">complaint.call.respo.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_respo"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Accès complet pour Agent Clientèle -->
+        <record model="ir.model.access" id="complaint_call_agent_clientele_access">
+            <field name="name">complaint.call.agent_clientele.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_agent_clientele"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Accès en lecture/écriture pour Agent Cellule de Veille -->
+        <record model="ir.model.access" id="complaint_call_agent_cellule_access">
+            <field name="name">complaint.call.agent_cellule.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_agent_cellule"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès en lecture/écriture pour Agent Commercial -->
+        <record model="ir.model.access" id="complaint_call_agent_commercial_access">
+            <field name="name">complaint.call.agent_commercial.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_agent_commercial"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès en lecture/écriture pour Technicien -->
+        <record model="ir.model.access" id="complaint_call_technicien_access">
+            <field name="name">complaint.call.technicien.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_technicien"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Accès en lecture/écriture pour Chef d'Équipe -->
+        <record model="ir.model.access" id="complaint_call_chef_access">
+            <field name="name">complaint.call.chef.access</field>
+            <field name="model_id" ref="model_complaint_call"/>
+            <field name="group_id" ref="group_cm_chef_equipe_tech"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+    </data>
+</odoo>

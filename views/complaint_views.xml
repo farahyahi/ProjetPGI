@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menu principal pour la gestion des réclamations -->
+        <menuitem id="menu_complaint_management_top" name="Gestion des Réclamations" sequence="10"/>
+
+        <!-- Vue Tree pour les réclamations -->
+        <record id="view_complaint_management_tree" model="ir.ui.view">
+            <field name="name">complaint.management.tree</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+                <tree string="Réclamations">
+                    <field name="x_objet"/>
+                    <field name="x_categorie"/>
+                    <field name="x_date_reception"/>
+                    <field name="x_etat_traitement"/>
+                    <field name="x_urgence"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vue de recherche pour les réclamations -->
+        <record id="view_complaint_management_search" model="ir.ui.view">
+            <field name="name">complaint.management.search</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+                <search string="Recherche de Réclamations">
+                    <field name="x_urgence"/>
+                    <field name="x_categorie"/>
+                    <field name="x_etat_traitement"/>
+                    <filter name="filter_urgence" string="Urgence" domain="[('x_urgence', '!=', False)]"/>
+                    <filter name="filter_categorie" string="Catégorie" domain="[('x_categorie', '!=', False)]"/>
+                    <filter name="filter_etat" string="État" domain="[('x_etat_traitement', '!=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vue Form pour les réclamations -->
+        <record id="view_complaint_management_form" model="ir.ui.view">
+            <field name="name">complaint.management.form</field>
+            <field name="model">complaint.management</field>
+            <field name="arch" type="xml">
+            <form string="Réclamation">
+                    
+                    <group string="Réclamant">
+                        <field name="x_origine"/>
+                        <field name="x_reclamant"/>
+                    </group>
+                    
+                    <!--affichage reclamation pour admin-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_admin">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception" />
+                        <field name="x_date_resolution" readonly="1"/>
+                        <field name="x_objet" />
+                        <field name="x_description" />
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence"/>  
+                        <field name="x_categorie"/>
+                        <field name="x_assignee_a" widget="many2many_tags"/>
+                        <field name="x_comments"/>
+                        <field name="x_attachements" filename="x_attachements_name"/>
+                        <field name="call_history"/>
+                    </group>
+
+                    <!--affichage reclamation pour respo-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_respo">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception" />
+                        <field name="x_date_resolution" readonly="1"/>
+                        <field name="x_objet" />
+                        <field name="x_description" />
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence"/>  
+                        <field name="x_categorie"/>
+                        <field name="x_assignee_a" widget="many2many_tags"/>
+                        <field name="x_comments"/>
+                        <field name="x_attachements" filename="x_attachements_name"/>
+                        <field name="call_history" readonly="1"/>
+                    </group>
+
+                    <!--affichage reclamation pour agent clientele-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_agent_clientele">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception"/>
+                        <field name="x_date_resolution" readonly="1"/>
+                        <field name="x_objet"/>
+                        <field name="x_description"/>
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence" readonly="1"/>  
+                        <field name="x_categorie" readonly="1"/>
+                        <field name="x_assignee_a" widget="many2many_tags" readonly="1"/>
+                        <field name="x_comments"/>
+                        <field name="x_attachements" filename="x_attachements_name"/>
+                        <field name="call_history"/>
+                    </group>
+
+                    <!--affichage reclamation pour agent cellule-->
+                    <group string="Détails de la réclamation" groups="complaintManagement.group_cm_agent_cellule">
+                        <field name="x_agence_id" readonly="1"/>
+                        <field name="x_date_reception"/>
+                        <field name="x_date_resolution" readonly="1"/>
+                        <field name="x_objet"/>
+                        <field name="x_description"/>
+                        <field name="x_etat_traitement" readonly="1"/>
+                        <field name="x_urgence" readonly="1"/>  
+                        <field name="x_categorie" readonly="1"/>
+                        <field name="x_assignee_a" widget="many2many_tags" readonly="1"/>
+                        <field name="x_comments"/>
+                        <field name="x_attachements" filename="x_attachements_name"/>
+                        <field name="call_history" readonly="1"/>
+                    </group>
+            
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Vue Tree pour l'historique des appels -->
+        <record id="view_complaint_calls_history_tree" model="ir.ui.view">
+            <field name="name">complaint.call.tree</field>
+            <field name="model">complaint.call</field>
+            <field name="arch" type="xml">
+                <tree string="Historique des appels">
+                    <field name="x_call_date"/>
+                    <field name="x_call_object"/>
+                    <field name="x_call_description"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vue form pour l'historique des appels -->
+        <record id="view_complaint_calls_history_form" model="ir.ui.view">
+            <field name="name">complaint.call.form</field>
+            <field name="model">complaint.call</field>
+            <field name="arch" type="xml">
+                <form string="Historique des appels">
+                    <field name="x_call_date"/>
+                    <field name="x_call_object"/>
+                    <field name="x_call_description"/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Inherit the existing form view of complaint.management to change the view of attachments -->
+        <record id="view_complaint_management_form_inherit" model="ir.ui.view">
+            <field name="name">complaint.management.form.inherit</field>
+            <field name="model">complaint.management</field>
+            <field name="inherit_id" ref="complaintManagement.view_complaint_management_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='x_attachements']" position="replace">
+                    <field name="x_attachements" widget="many2many_list">
+                        <tree>
+                            <field name="name" string="Nom"/>
+                            <field name="type" string="Type"/>
+                            <field name="file_size" string="Taille"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+        
+        <!-- Modification de la vue de formulaire des pièces jointes -->
+        <record id="view_attachment_form_inherit" model="ir.ui.view">
+            <field name="name">attachment.form.inherit</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <!-- Suppression du champ 'type de mime' -->
+                <xpath expr="//field[@name='mimetype']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- Suppression de la section 'Attached To' -->
+                <xpath expr="//field[@name='res_name']/.. | //field[@name='res_id']/.." position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- Suppression du champ 'description' -->
+                <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- Suppression du champ 'indexed' -->
+                <xpath expr="//field[@name='index_content']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Action pour afficher les réclamations -->
+        <record id="action_complaint_management" model="ir.actions.act_window">
+            <field name="name">Registre des réclamations</field>
+            <field name="res_model">complaint.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_complaint_management_tree"/>
+            <field name="search_view_id" ref="view_complaint_management_search"/>
+            <!--field name="domain">
+            ['|',
+            ('|', ('x_assignee_a', 'in', [uid]), ('create_uid', '=', uid))                ,
+            ('|', ('uid.group_cm_admin', '=', True),('uid.group_cm_respo', '=', True)  
+            )]
+            </field-->
+        </record>
+
+        <!-- Sous-menu pour afficher toutes les réclamations -->
+        <menuitem id="menu_complaint_management" 
+                  name="Registre des réclamations" 
+                  parent="menu_complaint_management_top" 
+                  action="action_complaint_management" 
+                  sequence="20"
+                  groups="complaintManagement.group_cm_admin,complaintManagement.group_cm_respo,complaintManagement.group_cm_agent_clientele,complaintManagement.group_cm_agent_cellule"/>
+    </data>
+</odoo>
