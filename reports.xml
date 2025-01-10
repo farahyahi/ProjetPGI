@@ -157,20 +157,25 @@
                         </p>
 
                         <!-- Détails de la décision Section -->
-                        <h3 style="margin-top: 40px;">Détails de la Décision</h3>
+                        <p style="font-size: 20px;margin-top: 40px;"><strong>Détails de la Décision</strong></p>
                         <p style="font-size: 18px; margin-top: 10px;">
                             <strong>Décision :</strong> <t t-esc="doc.x_decision"/>
                         </p>
+                       
+                        <p style="font-size: 18px; margin-top: 10px;">
+                            <strong>Membres de la commission :</strong>
+                            <t t-foreach="doc.x_traite_par" t-as="user">
+                                <li style="font-size: 18px" class="ms-3"><t t-esc="user.name"/></li>
+                            </t>
+                        </p>
+                        
 
                         <!-- Signature Section -->
                         <p style="text-align: right; font-size: 18px;">
-                            <strong>Date :</strong> <t t-esc="doc.x_date_resolution"/>
+                            <strong>Date : </strong> <t t-esc="doc.x_date_resolution"/>
                         </p>
                         <p style="text-align: right; font-size: 18px;">
-                            <strong>Signature :</strong>
-                        </p>
-                        <p style="text-align: right; font-size: 18px; margin-top: 40px;">
-                            <strong>Entreprise AlMiyah Djazair</strong>
+                            <strong>Signature : Entreprise AlMiyah Djazair</strong>
                         </p>
                     </div>
                 </t>

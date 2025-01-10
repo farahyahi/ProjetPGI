@@ -290,5 +290,29 @@
             <field name="groups" eval="[(4, ref('group_cm_agent_cellule'))]"/>
         </record>
 
+        <!-- Règle de sécurité : Chaque agent technicien ne voit que les réclamations qu'il traite -->
+        <record id="complaint_management_rule_see_complaints_agent_technicien" model="ir.rule">
+            <field name="name">Voir uniquement les réclamations qu'il doit traiter </field>
+            <field name="model_id" search="[('model', '=', 'complaint.management')]"/>
+            <field name="domain_force">[('x_traite_par', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_cm_technicien'))]"/>
+        </record>
+
+        <!-- Règle de sécurité : Chaque chef technicien ne voit que les réclamations qu'il traite -->
+        <record id="complaint_management_rule_see_complaints_chef_equipe" model="ir.rule">
+            <field name="name">Voir uniquement les réclamations qu'il doit traiter </field>
+            <field name="model_id" search="[('model', '=', 'complaint.management')]"/>
+            <field name="domain_force">[('x_traite_par', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_cm_chef_equipe_tech'))]"/>
+        </record>
+
+        <!-- Règle de sécurité : Chaque agent commercial ne voit que les réclamations qu'il traite -->
+        <record id="complaint_management_rule_see_complaints_agent_commercial" model="ir.rule">
+            <field name="name">Voir uniquement les réclamations commerciales qu'il doit traiter </field>
+            <field name="model_id" search="[('model', '=', 'complaint.management')]"/>
+            <field name="domain_force">[('x_traite_par', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_cm_agent_commercial'))]"/>
+        </record>
+
     </data>
 </odoo>

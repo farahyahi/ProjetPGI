@@ -7,8 +7,7 @@ class Complaint(models.Model):
     x_agence_id = fields.Many2one(
         "res.company",
         string="Agence",
-         # non required to test
-         default=lambda self: self.env.user.company_id,
+        default=lambda self: self.env.user.company_id,
     )
 
     x_objet = fields.Char(string='Objet', required=True)

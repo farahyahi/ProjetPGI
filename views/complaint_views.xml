@@ -206,12 +206,6 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_complaint_management_tree"/>
             <field name="search_view_id" ref="view_complaint_management_search"/>
-            <!--field name="domain">
-            ['|',
-            ('|', ('x_assignee_a', 'in', [uid]), ('create_uid', '=', uid))                ,
-            ('|', ('uid.group_cm_admin', '=', True),('uid.group_cm_respo', '=', True)  
-            )]
-            </field-->
         </record>
 
         <!-- Sous-menu pour afficher toutes les réclamations -->
