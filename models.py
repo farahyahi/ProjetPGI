@@ -11,7 +11,7 @@ class Complaint(models.Model):
          default=lambda self: self.env.user.company_id,
     )
 
-    x_objet = fields.Char(string='Objet de la réclamation', required=True)
+    x_objet = fields.Char(string='Objet', required=True)
     x_description = fields.Text(string='Description')
     x_categorie = fields.Selection([
         ('Technique', 'Technique'),

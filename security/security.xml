@@ -273,18 +273,22 @@
         </record>
 
 
-          <!-- Accès complet pour Administrateur -->
-        <record model="ir.model.access" id="complaint_feedback_admin_access">
-            <field name="name">complaint.feedback.admin.access</field>
-            <field name="model_id" ref="model_complaint_feedback"/>
-            <field name="group_id" ref="group_cm_admin"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_create" eval="1"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_unlink" eval="1"/>
+        <!-- Règle de sécurité : Chaque agent clientele ne voit que ses réclamations -->
+        <record id="complaint_management_rule_see_assigned_complaints" model="ir.rule">
+            <field name="name">Voir uniquement les réclamations assignées</field>
+            <field name="model_id" search="[('model', '=', 'complaint.management')]"/>
+            <field name="domain_force">[('x_assignee_a', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_cm_agent_clientele'))]"/>
         </record>
 
-       
+
+        <!-- Règle de sécurité : Chaque agent de veille ne voit que les réclamations qu'il a créées -->
+        <record id="complaint_management_rule_see_complaints_agent_veille" model="ir.rule">
+            <field name="name">Voir uniquement les réclamations créées par lui</field>
+            <field name="model_id" search="[('model', '=', 'complaint.management')]"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_cm_agent_cellule'))]"/>
+        </record>
 
     </data>
 </odoo>
