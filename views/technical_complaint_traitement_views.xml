@@ -53,6 +53,7 @@
                         <field name="x_categorie"/>
                         <field name="x_comments"/>
                         <field name="x_attachements" filename="x_attachements_name" readonly='1'/>
+                        <field name="call_history" readonly="1"/>
                     </group>
 
                     <!--affichage reclamation pour les autres-->
@@ -66,6 +67,7 @@
                         <field name="x_categorie" readonly="1"/>
                         <field name="x_comments" readonly="1"/>
                         <field name="x_attachements" filename="x_attachements_name" readonly='1'/>
+                        <field name="call_history" readonly="1"/>
                     </group>               
                         
     

@@ -7,9 +7,10 @@ class Complaint(models.Model):
     x_agence_id = fields.Many2one(
         "res.company",
         string="Agence",
-        required=True,
-        default=lambda self: self.env.user.company_id,
+         # non required to test
+         default=lambda self: self.env.user.company_id,
     )
+
     x_objet = fields.Char(string='Objet de la réclamation', required=True)
     x_description = fields.Text(string='Description')
     x_categorie = fields.Selection([
@@ -28,7 +29,7 @@ class Complaint(models.Model):
         ('Citoyen', 'Citoyen'),
         ('Entreprise', 'Entreprise'),
         ('Cellule de veille', 'Cellule de veille'),
-    ], string='Origine', default='Citoyen')
+    ], string='Origine')
     x_reclamant = fields.Many2one('res.partner', string='Réclamant')
     x_assignee_a = fields.Many2many(
         'res.users',
@@ -36,6 +37,7 @@ class Complaint(models.Model):
         'complaint_id',  # Colonne pour l'ID de réclamation
         'user_id',  # Colonne pour l'ID utilisateur
         string="Assigné à", 
+        #default=lambda self: self.env.user
     )
     x_date_resolution = fields.Datetime(string='Date de résolution')
     x_comments = fields.Text(string='Commentaires')    #si necessaire
@@ -58,8 +60,11 @@ class Complaint(models.Model):
     action_history = fields.One2many('complaint.action', 'complaint_id', string='Historique des actions')
 
     # Historique des appels
-    call_history = fields.One2many('complaint.call', 'x_complaint_id', string='Historique des appels')
-
+    call_history = fields.One2many('complaint.call', 'x_complaint_id', string='Historique des appels')    
+    
+    x_feedback_note = fields.Integer(string="Note de satisfaction (/5)")
+    x_feedback_description = fields.Text(string="Commentaires")
+    
     @api.model
     def create(self, vals):
         # Récupérer l'utilisateur courant
@@ -80,6 +85,7 @@ class Complaint(models.Model):
         record.x_etat_traitement = 'Nouvelle'
 
         return record
+    
 
     def write(self, vals):
         res = super(Complaint, self).write(vals)
@@ -90,9 +96,10 @@ class Complaint(models.Model):
                 record.x_etat_traitement = 'En cours'
             if 'x_date_resolution' in vals and vals['x_date_resolution']:
                 record.x_etat_traitement = 'Résolue'
+            if 'x_feedback_note' in vals and vals ['x_feedback_note']:
+                record.x_etat_traitement = 'Archivée'
 
         return res
-
 
 class ComplaintAction(models.Model):
     _name = 'complaint.action'
@@ -109,4 +116,4 @@ class ComplaintCall(models.Model):
     x_complaint_id = fields.Many2one('complaint.management', string='Réclamation associée', required=True)
     x_call_date = fields.Datetime(string='Date de l\'appel', default=fields.Datetime.now)
     x_call_object = fields.Char(string='Objet de l\'appel', required=True)
-    x_call_description = fields.Text(string='Description de l\'appel')
+    x_call_description = fields.Text(string='Description de l\'appel')  

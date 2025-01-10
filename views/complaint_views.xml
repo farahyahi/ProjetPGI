@@ -46,6 +46,7 @@
                         <field name="x_origine"/>
                         <field name="x_reclamant"/>
                     </group>
+
                     
                     <!--affichage reclamation pour admin-->
                     <group string="Détails de la réclamation" groups="complaintManagement.group_cm_admin">
@@ -108,7 +109,12 @@
                         <field name="x_assignee_a" widget="many2many_tags" readonly="1"/>
                         <field name="x_comments"/>
                         <field name="x_attachements" filename="x_attachements_name"/>
-                        <field name="call_history" readonly="1"/>
+                    </group>
+
+                    <!--affichage feedback pour agent clientele, admin et respo-->
+                    <group string="Feedback" groups="complaintManagement.group_cm_agent_clientele,complaintManagement.group_cm_admin,complaintManagement.group_cm_respo">
+                        <field name="x_feedback_note"/>
+                        <field name="x_feedback_description"/>
                     </group>
             
                 </form>
@@ -129,6 +135,8 @@
             </field>
         </record>
 
+
+
         <!-- Vue form pour l'historique des appels -->
         <record id="view_complaint_calls_history_form" model="ir.ui.view">
             <field name="name">complaint.call.form</field>
@@ -141,6 +149,11 @@
                 </form>
             </field>
         </record>
+
+       
+        
+
+
 
         <!-- Inherit the existing form view of complaint.management to change the view of attachments -->
         <record id="view_complaint_management_form_inherit" model="ir.ui.view">

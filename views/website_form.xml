@@ -1,0 +1,126 @@
+<odoo>
+    <!-- Menu to access the form -->
+    <record id="menu_complaint_form1" model="website.menu">
+        <field name="name">Add complaint</field>
+        <field name="url">/complaint_webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+  
+
+    <!-- Form to create a complaint -->
+     <template id="create_complaint" name="Create complaint">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/webcomplaint" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
+                            <!-- Objet -->
+                            <div class="form-group">
+                                <label for="complaint_objet" class="control-label">Objet</label>
+                                <input type="text" name="complaint_objet" id="complaint_objet" class="form-control" required="required" />
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group">
+                                <label for="complaint_description" class="control-label">Description</label>
+                                <textarea name="complaint_description" id="complaint_description" class="form-control" required="required"></textarea>
+                            </div>
+
+                              <!-- Pièces jointes -->
+                            <div class="form-group">
+                            
+                                <label for="complaint_attachements" class="control-label">Pièces jointes</label>
+                                <input type="file" name="complaint_attachements" id="complaint_attachements" class="form-control" multiple="multiple" />
+                            </div>
+
+                            <!-- Origine -->
+                            <div class="form-group">
+                                <label for="complaint_origine" class="control-label">Origine</label>
+                                <select name="complaint_origine" id="complaint_origine" class="form-control" required="required">
+                                    <option value="Citoyen">Citoyen</option>
+                                    <option value="Entreprise">Entreprise</option>
+                                </select>
+                            </div>
+
+                            <!-- Informations du réclamant -->
+                            <fieldset>
+                                <legend>Informations du réclamant</legend>
+                                <div class="form-group">
+                                    <label for="complaint_nom" class="control-label">Nom complet</label>
+                                    <input type="text" name="complaint_nom" id="complaint_nom" class="form-control" required="required"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="complaint_adresse" class="control-label">Adresse</label>
+                                    <input type="text" name="complaint_adresse" id="complaint_adresse" class="form-control" required="required"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="complaint_commune" class="control-label">Commune</label>
+                                    <input type="text" name="complaint_commune" id="complaint_commune" class="form-control" required="required" />
+                                </div>
+
+                                <!-- Raison sociale (visible uniquement pour "Entreprise") -->
+                                <div class="form-group" id="raison_sociale_field" >
+                                    <label for="complaint_raison_sociale" class="control-label">Raison sociale</label>
+                                    <input type="text" name="complaint_raison_sociale" id="complaint_raison_sociale" class="form-control" />
+                                </div>
+                                  
+
+                                <div class="form-group">
+                                    <label for="complaint_telephone" class="control-label">Téléphone</label>
+                                    <input type="text" name="complaint_telephone" id="complaint_telephone" class="form-control" required="required"   />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="complaint_email" class="control-label">Email</label>
+                                    <input type="email" name="complaint_email" id="complaint_email" class="form-control" required="required" />
+                                </div>
+                            </fieldset>
+
+                          
+
+                            <!-- Bouton de soumission -->
+                            <div class="clearfix oe_login_button">
+                                <button type="submit" class="btn btn-primary pull-left">Soumettre</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    
+
+
+    <!-- Thank You Page -->
+    <record id="complaint_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/complaint-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">complaintManagement.complaint_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="complaintManagement.complaint_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thank</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Succes!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

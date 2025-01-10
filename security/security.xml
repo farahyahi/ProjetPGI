@@ -204,6 +204,8 @@
             <field name="perm_unlink" eval="1"/>
         </record>
 
+       
+
         <!-- Accès complet pour Responsable Agence -->
         <record model="ir.model.access" id="complaint_call_respo_access">
             <field name="name">complaint.call.respo.access</field>
@@ -269,6 +271,20 @@
             <field name="perm_write" eval="1"/>
             <field name="perm_unlink" eval="0"/>
         </record>
+
+
+          <!-- Accès complet pour Administrateur -->
+        <record model="ir.model.access" id="complaint_feedback_admin_access">
+            <field name="name">complaint.feedback.admin.access</field>
+            <field name="model_id" ref="model_complaint_feedback"/>
+            <field name="group_id" ref="group_cm_admin"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+       
 
     </data>
 </odoo>
