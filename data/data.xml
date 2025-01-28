@@ -1,0 +1,7 @@
+<odoo>
+    <record id="complaint_dashboard_instance" model="complaint.management">
+        <field name="x_objet">Dashboard Global</field>
+        <field name="x_date_reception">2023-01-01 00:00:00</field>
+        <field name="x_is_dashboard">True</field>
+    </record>
+</odoo>

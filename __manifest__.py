@@ -7,9 +7,11 @@
     "depends": ["base", "mail" ,"website"],
     "data": [
         "security/security.xml",
+        "data/data.xml",
         "views/complaint_views.xml",
         "views/technical_complaint_traitement_views.xml",
         "views/commercial_complaint_traitement_views.xml",
+        "views/dashboard_views.xml",
         "views/website_form.xml",
         "reports.xml",
     ],

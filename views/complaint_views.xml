@@ -11,6 +11,7 @@
             <field name="arch" type="xml">
                 <tree string="Réclamations">
                     <field name="x_objet"/>
+                    <field name="x_assignee_a"/>
                     <field name="x_categorie"/>
                     <field name="x_date_reception"/>
                     <field name="x_etat_traitement"/>
@@ -18,6 +19,8 @@
                 </tree>
             </field>
         </record>
+
+    
 
         <!-- Vue de recherche pour les réclamations -->
         <record id="view_complaint_management_search" model="ir.ui.view">
@@ -151,9 +154,6 @@
         </record>
 
        
-        
-
-
 
         <!-- Inherit the existing form view of complaint.management to change the view of attachments -->
         <record id="view_complaint_management_form_inherit" model="ir.ui.view">
@@ -206,7 +206,9 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_complaint_management_tree"/>
             <field name="search_view_id" ref="view_complaint_management_search"/>
+            <field name="domain">[('x_is_dashboard', '=', False)]</field>
         </record>
+
 
         <!-- Sous-menu pour afficher toutes les réclamations -->
         <menuitem id="menu_complaint_management" 
@@ -215,5 +217,6 @@
                   action="action_complaint_management" 
                   sequence="20"
                   groups="complaintManagement.group_cm_admin,complaintManagement.group_cm_respo,complaintManagement.group_cm_agent_clientele,complaintManagement.group_cm_agent_cellule"/>
-    </data>
+        
+        </data>
 </odoo>
