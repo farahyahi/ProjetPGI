@@ -76,8 +76,8 @@
                     <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_respo">
                         <field name="x_chef"/>                       
                         <field name="x_traite_par"/>
-                        <field name="x_date_resolution" readonly="1"/>
                         <field name="x_gravite" readonly="1"/>
+                        <field name="x_date_resolution" readonly="1"/>
                         <field name="action_history" readonly="1"/>
                     </group>
                         
@@ -85,8 +85,8 @@
                     <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_admin">
                         <field name="x_chef"/>                       
                         <field name="x_traite_par"/>
-                        <field name="x_date_resolution"/>
                         <field name="x_gravite"/>
+                        <field name="x_date_resolution"/>                    
                         <field name="action_history" />
                     </group>
 
@@ -94,8 +94,8 @@
                     <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_chef_equipe_tech">
                         <field name="x_chef" readonly="1"/>                       
                         <field name="x_traite_par" readonly="1"/>
-                        <field name="x_date_resolution"/>
                         <field name="x_gravite"/>
+                        <field name="x_date_resolution"/>
                         <field name="action_history" />
                     </group>
 
@@ -103,8 +103,8 @@
                     <group string="Traitement de la réclamation" groups="complaintManagement.group_cm_technicien">
                         <field name="x_chef" readonly="1"/>                       
                         <field name="x_traite_par" readonly="1"/>
-                        <field name="x_date_resolution" readonly="1"/>
                         <field name="x_gravite" readonly='1'/>
+                        <field name="x_date_resolution" readonly="1"/>
                         <field name="action_history" readonly="1"/>
                     </group>
 
